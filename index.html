@@ -12,10 +12,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     min-height: 100vh;
     font-family: "DM Sans", sans-serif;
     padding: 40px 20px;
-    gap: 28px;
+    gap: 32px;
   }
 
   h1 {
@@ -24,8 +25,10 @@
     color: #1e1030;
     letter-spacing: 0.02em;
   }
+
   h1 span { color: #7c3aed; }
 
+  /* FORM */
   .form-card {
     background: #fff;
     border-radius: 14px;
@@ -36,7 +39,7 @@
   }
 
   .form-card h2 {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 500;
     color: #7c3aed;
     letter-spacing: 0.18em;
@@ -44,7 +47,12 @@
     margin-bottom: 20px;
   }
 
-  .field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 14px;
+  }
 
   .field label {
     font-size: 10px;
@@ -66,48 +74,33 @@
     background: #faf9fc;
   }
 
-  .field input:focus { border-color: #a855f7; background: #fff; }
-  .field input::placeholder { color: #c4b5d8; }
-
-  .field input[readonly] {
-    background: #f3f0fa;
-    color: #9b89b4;
-    cursor: default;
+  .field input:focus {
+    border-color: #a855f7;
+    background: #fff;
   }
 
-  .btn-row { display: flex; gap: 10px; margin-top: 6px; }
+  .field input::placeholder { color: #c4b5d8; }
 
-  .btn {
-    flex: 1;
+  button {
+    margin-top: 6px;
+    width: 100%;
     padding: 11px;
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    color: #fff;
     border: none;
     border-radius: 8px;
     font-family: "DM Sans", sans-serif;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     cursor: pointer;
     transition: opacity 0.2s;
   }
-  .btn:hover { opacity: 0.85; }
 
-  .btn-primary {
-    background: linear-gradient(135deg, #7c3aed, #a855f7);
-    color: #fff;
-  }
+  button:hover { opacity: 0.88; }
 
-  .btn-dl {
-    background: #1e1030;
-    color: #d8b4fe;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-  }
-
-  .btn-dl svg { width: 13px; height: 13px; fill: #d8b4fe; flex-shrink: 0; }
-
+  /* PREVIEW LABEL */
   .section-label {
     color: #9b89b4;
     font-size: 10px;
@@ -118,6 +111,7 @@
     width: 100%;
   }
 
+  /* CARDS SIDE BY SIDE */
   .cards-row {
     display: flex;
     gap: 24px;
@@ -129,7 +123,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
   }
 
   .side-label {
@@ -157,7 +151,10 @@
     background: #ffffff;
     box-shadow: 0 20px 50px rgba(90,50,130,0.13), 0 0 0 1px rgba(160,110,210,0.12);
   }
-  .front:hover { box-shadow: 0 36px 65px rgba(90,50,130,0.2), 0 0 0 1px rgba(150,100,200,0.15); }
+
+  .front:hover {
+    box-shadow: 0 36px 65px rgba(90,50,130,0.2), 0 0 0 1px rgba(150,100,200,0.15);
+  }
 
   .accent-bar {
     position: absolute;
@@ -227,8 +224,11 @@
   }
 
   .contact-block { display: flex; flex-direction: column; gap: 4px; }
+
   .contact-row { display: flex; align-items: center; gap: 7px; }
+
   .contact-icon { width: 11px; text-align: center; flex-shrink: 0; }
+
   .contact-icon svg { width: 10px; height: 10px; fill: #a855f7; vertical-align: middle; }
 
   .contact-text {
@@ -246,6 +246,7 @@
     align-items: center;
     justify-content: center;
   }
+
   .back:hover { box-shadow: 0 40px 70px rgba(30,10,60,0.4); }
 
   .back::before {
@@ -300,14 +301,8 @@
     color: #b8a8d0;
     font-size: 10px;
     text-align: center;
+    max-width: 420px;
     line-height: 1.7;
-  }
-
-  #dl-status {
-    font-size: 11px;
-    color: #7c3aed;
-    min-height: 16px;
-    text-align: center;
   }
 </style>
 </head>
@@ -339,21 +334,9 @@
   </div>
   <div class="field">
     <label>Website</label>
-    <input type="text" id="inp-web" value="withclutch.com" readonly>
+    <input type="text" id="inp-web" placeholder="e.g. withclutch.com" oninput="update()">
   </div>
-
-  <div id="dl-status"></div>
-
-  <div class="btn-row">
-    <button class="btn btn-dl" onclick="downloadCard('front')">
-      <svg viewBox="0 0 24 24"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 4h14v-2H5v2z"/></svg>
-      Front JPEG
-    </button>
-    <button class="btn btn-dl" onclick="downloadCard('back')">
-      <svg viewBox="0 0 24 24"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 4h14v-2H5v2z"/></svg>
-      Back JPEG
-    </button>
-  </div>
+  <button onclick="update()">Update Preview</button>
 </div>
 
 <div class="section-label">Preview</div>
@@ -361,7 +344,7 @@
 <div class="cards-row">
   <div class="card-wrap">
     <div class="side-label">Front</div>
-    <div class="card front" id="card-front">
+    <div class="card front">
       <div class="accent-bar"></div>
       <div class="front-content">
         <div>
@@ -369,21 +352,21 @@
           <div class="card-title" id="preview-title">Your Title</div>
         </div>
         <div class="contact-block">
-          <div class="contact-row">
+          <div class="contact-row" id="row-phone">
             <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.47 11.47 0 003.58.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg></div>
             <span class="contact-text" id="preview-phone">—</span>
           </div>
-          <div class="contact-row">
+          <div class="contact-row" id="row-email">
             <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
             <span class="contact-text" id="preview-email">—</span>
           </div>
-          <div class="contact-row">
+          <div class="contact-row" id="row-linkedin">
             <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></div>
             <span class="contact-text" id="preview-linkedin">—</span>
           </div>
-          <div class="contact-row">
+          <div class="contact-row" id="row-web">
             <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div>
-            <span class="contact-text">withclutch.com</span>
+            <span class="contact-text" id="preview-web">—</span>
           </div>
         </div>
       </div>
@@ -396,7 +379,7 @@
 
   <div class="card-wrap">
     <div class="side-label">Back</div>
-    <div class="card back" id="card-back">
+    <div class="card back">
       <div class="accent-bar"></div>
       <div class="back-bottom-bar"></div>
       <div class="back-logo">
@@ -407,9 +390,8 @@
   </div>
 </div>
 
-<p class="hint">Standard 3.5 × 2 in &nbsp;·&nbsp; Hover cards to preview depth</p>
+<p class="hint">Standard 3.5 × 2 in &nbsp;·&nbsp; Share this file with teammates &nbsp;·&nbsp; Hover cards to preview depth</p>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
   function update() {
     var name     = document.getElementById("inp-name").value.trim();
@@ -417,46 +399,14 @@
     var phone    = document.getElementById("inp-phone").value.trim();
     var email    = document.getElementById("inp-email").value.trim();
     var linkedin = document.getElementById("inp-linkedin").value.trim();
+    var web      = document.getElementById("inp-web").value.trim();
 
-    document.getElementById("preview-name").textContent     = name     || "Your Name";
-    document.getElementById("preview-title").textContent    = title    || "Your Title";
-    document.getElementById("preview-phone").textContent    = phone    || "—";
-    document.getElementById("preview-email").textContent    = email    || "—";
+    document.getElementById("preview-name").textContent    = name     || "Your Name";
+    document.getElementById("preview-title").textContent   = title    || "Your Title";
+    document.getElementById("preview-phone").textContent   = phone    || "—";
+    document.getElementById("preview-email").textContent   = email    || "—";
     document.getElementById("preview-linkedin").textContent = linkedin || "—";
-  }
-
-  function downloadCard(side) {
-    var el = document.getElementById("card-" + side);
-    var status = document.getElementById("dl-status");
-    status.textContent = "Rendering…";
-
-    // Temporarily remove hover transform so capture is clean
-    el.style.transform = "none";
-    el.style.transition = "none";
-
-    var name = document.getElementById("inp-name").value.trim() || "card";
-    var filename = name.toLowerCase().replace(/\s+/g, "_") + "_" + side + ".jpg";
-
-    html2canvas(el, {
-      scale: 3,
-      useCORS: true,
-      backgroundColor: null,
-      logging: false
-    }).then(function(canvas) {
-      el.style.transform = "";
-      el.style.transition = "";
-      status.textContent = "";
-
-      var link = document.createElement("a");
-      link.download = filename;
-      link.href = canvas.toDataURL("image/jpeg", 0.97);
-      link.click();
-    }).catch(function(err) {
-      el.style.transform = "";
-      el.style.transition = "";
-      status.textContent = "Error rendering — try again.";
-      console.error(err);
-    });
+    document.getElementById("preview-web").textContent     = web      || "—";
   }
 </script>
 
